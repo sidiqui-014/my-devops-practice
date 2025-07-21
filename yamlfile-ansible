@@ -1,0 +1,128 @@
+📄 What Is a YAML File in Ansible?
+
+In Ansible, YAML (Yet Another Markup Language) is used to write playbooks, roles, inventory, and variable files. YAML is the format Ansible uses to define tasks, configurations, and orchestration steps in a human-readable way.
+
+A typical Ansible playbook written in YAML describes:
+
+    What machines to run on (hosts)
+
+    What tasks to perform (e.g., install software, copy files)
+
+    In what order
+
+🏷️ Common Tags (Fields/Keywords) Used in Ansible YAML Files
+
+Here's a list of commonly used tags in Ansible YAML playbooks:
+🔹 name
+
+    Description of the play or task.
+
+    Makes output readable when running ansible-playbook.
+
+- name: Install Nginx
+
+🔹 hosts
+
+    Specifies the target hosts (from inventory) to run tasks on.
+
+  hosts: webservers
+
+🔹 become
+
+    Runs tasks as a privileged user (like sudo).
+
+  become: true
+
+🔹 tasks
+
+    A list of actions to be executed on the target hosts.
+
+  tasks:
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+
+🔹 vars
+
+    Used to define variables within a playbook.
+
+  vars:
+    app_port: 8080
+
+🔹 roles
+
+    Includes a list of roles to apply (from roles/ directory).
+
+  roles:
+    - common
+    - webserver
+
+🔹 handlers
+
+    Define actions that run only when notified (e.g., restart a service).
+
+  handlers:
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted
+
+🔹 notify
+
+    Used in a task to trigger a handler.
+
+    - name: Update config
+      template:
+        src: nginx.conf.j2
+        dest: /etc/nginx/nginx.conf
+      notify: restart nginx
+
+🔹 when
+
+    Conditional execution based on variables or facts.
+
+    - name: Only on Ubuntu
+      apt:
+        name: nginx
+        state: present
+      when: ansible_os_family == "Debian"
+
+🔹 with_items
+
+    Loop through a list of items in a task.
+
+    - name: Install multiple packages
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - git
+        - curl
+        - unzip
+
+✅ Summary of Common Tags
+
+    name: Describes a play or task.
+
+    hosts: Target group/host from inventory.
+
+    become: Run with elevated privileges.
+
+    tasks: List of actions to perform.
+
+    vars: Define variables.
+
+    roles: Include reusable roles.
+
+    handlers: Define conditional actions.
+
+    notify: Trigger handlers when needed.
+
+    when: Conditional logic.
+
+    with_items: Loop over a list
+
+
+
+#learning #devops #newtodevops #yaml #ansible #IAC

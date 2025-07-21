@@ -1,0 +1,150 @@
+📄 What Is a YAML File in Kubernetes?
+
+A YAML file in Kubernetes is a human-readable configuration file used to define Kubernetes resources, such as Pods, Deployments, Services, ConfigMaps, and more.
+
+Kubernetes uses YAML (short for "YAML Ain't Markup Language") because it's easy to read and write, especially for defining complex nested structures like configurations.
+✅ Purpose of Kubernetes YAML Files
+
+    Declare what you want (desired state), not how to do it.
+
+    Kubernetes then takes care of making the actual state match the desired state.
+
+    Used in kubectl apply -f yourfile.yaml to create/update resources.
+
+---------------------------------------------------------------------------------------------
+📄 Common Tags Used in Kubernetes YAML Files
+
+    apiVersion
+    Specifies the Kubernetes API version for the resource.
+    Example:
+
+apiVersion: apps/v1
+
+kind
+Defines the type of Kubernetes resource you're creating.
+Example:
+
+kind: Deployment
+
+metadata
+Contains metadata like the name, labels, and annotations of the resource.
+Example:
+
+metadata:
+  name: my-app
+  labels:
+    app: my-app
+
+spec
+Describes the desired state and configuration of the resource. The content of spec varies depending on the resource type.
+Example (for Deployment):
+
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+        - name: my-container
+          image: myimage:latest
+
+containers
+A list of containers that should be run inside a Pod. Each container has properties like name, image, ports, etc.
+Example:
+
+containers:
+  - name: nginx
+    image: nginx:latest
+    ports:
+      - containerPort: 80
+
+image
+Specifies the Docker image to use for the container.
+Example:
+
+image: nginx:1.25
+
+ports
+Lists the ports that the container will expose.
+Example:
+
+ports:
+  - containerPort: 80
+
+replicas
+Used in Deployments to specify the number of Pod replicas to maintain.
+Example:
+
+replicas: 3
+
+selector
+Used to match Pods with specific labels. Often used in Deployments and Services.
+Example:
+
+selector:
+  matchLabels:
+    app: my-app
+
+labels
+Key-value pairs used to organize and select Kubernetes objects.
+Example:
+
+labels:
+  app: my-app
+
+env
+Defines environment variables for containers.
+Example:
+
+env:
+  - name: ENV
+    value: production
+
+resources
+Sets CPU and memory limits and requests for containers.
+Example:
+
+resources:
+  requests:
+    memory: "128Mi"
+    cpu: "250m"
+  limits:
+    memory: "256Mi"
+    cpu: "500m"
+
+volumeMounts
+Specifies the mount path for a volume in the container.
+Example:
+
+volumeMounts:
+  - name: config-volume
+    mountPath: /etc/config
+
+volumes
+Declares the volumes that can be mounted into the Pod.
+Example:
+
+volumes:
+  - name: config-volume
+    configMap:
+      name: my-config
+
+command
+Overrides the default command for the container.
+Example:
+
+command: ["/bin/sh"]
+
+args
+Specifies arguments passed to the command.
+Example:
+
+    args: ["-c", "echo Hello"]
+-------------------------------------------------------------
+#yamlfile #fork8s #learning #newtodevops 
+
