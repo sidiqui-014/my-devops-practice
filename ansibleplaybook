@@ -1,0 +1,48 @@
+---
+- name: Install Nginx on Ubuntu
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Update apt packages
+      apt:
+        update_cache: yes
+
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: Ensure Nginx is running and enabled
+      service:
+        name: nginx
+        state: started
+        enabled: true
+##comman tags used in ansible playbooks.
+
+#| **Tag**       | **Purpose / Usage**                                                  |
+#| ------------- | -------------------------------------------------------------------- |
+#| `install`     | Used for tasks that install packages, dependencies, or applications  |
+#| `update`      | Used for updating package indexes (e.g., `apt update`, `yum update`) |
+#| `upgrade`     | Used when upgrading packages to newer versions                       |
+#| `remove`      | Tasks that uninstall packages or delete files                        |
+#| `config`      | Applying configuration files, templates, or settings                 |
+#| `start`       | Starting services (e.g., `nginx`, `mysql`)                           |
+#| `stop`        | Stopping services                                                    |
+#| `restart`     | Restarting services                                                  |
+#| `reload`      | Reloading services (especially after a config change)                |
+#| `enable`      | Enabling a service to start at boot                                  |
+#| `disable`     | Disabling a service from starting at boot                            |
+#| `deploy`      | Tasks related to deploying applications or websites                  |
+#| `firewall`    | Configuring firewalls like UFW, iptables, or firewalld               |
+#| `users`       | Managing user accounts or groups                                     |
+#| `permissions` | Setting file or directory permissions                                |
+#| `backup`      | Tasks that create or manage backups                                  |
+#| `cron`        | Managing cron jobs                                                   |
+#| `database`    | Setting up databases, schemas, users, or permissions                 |
+#| `nginx`       | Any task specifically related to Nginx                               |
+#| `apache`      | Any task related to Apache HTTP Server                               |
+#| `debug`       | For debugging tasks — e.g., `debug` module, outputting vars          |
+#| `cleanup`     | Tasks that remove temp files, logs, or old data                      |
+#| `security`    | Installing patches, setting passwords, hardening servers             |
+
