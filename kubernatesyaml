@@ -1,0 +1,43 @@
+#nignx-deployment.yaml
+
+apiversion: apps/v1
+kind: Deployment
+metadata:
+  name:nginx-deployment
+spec:
+  replicas: 1
+  selector:
+    matchlables:
+      app: nginx  
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx conatiners
+        image: nginx:latest
+        ports:
+        - conatiners: 80        
+##-----------------------------------------------------------------------------------------------
+##api version : tells kubernates which version of the resouces you are using 
+# kind : tells what type of kubernates object you afre creating like pod seervice deployment and so on.
+
+#metadata and name: to give your objevct a name and alabel ( think it as this is the name of my deployment)
+
+#spec: 
+#  replicas: 1
+# to define how many pods copy of app you want to run
+
+#selector matchlabel and labels : kubernates uses lables to known which pod belongs to which deployment ( thinks it as tag my app so it acn found and managed
+
+#containers:
+#   - name: nginx-conatiner
+#    image: nginx:lastest
+#     ports:
+#     - containerport: 80
+#conatiners defiens what to run inside apod
+#image : whcih docker image to used 
+#ports :whcoh container port to open 
+# think it as run this image and expose this port
+   
